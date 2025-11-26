@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum=1.0, user-scalable=no" />
+  <meta name="title" content="爱心与烟花">
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+</head>
+
+<body>
+  <div class="container">
+    <div class="content">
+      <div id="fireworks-overlay" style="position:fixed; inset:0; z-index:1; pointer-events:none;"></div>
+      <div id="heart-container" style="position:absolute; top:0; bottom:0; left:50%; right:0; z-index:2;"></div>
+      <canvas id="universe"></canvas>
+      <canvas id="canvas"></canvas>
+      <iframe src="audio/[No Copyright Music] Unconditionally - Broken Elegance.mp3" allow="autoplay" style="display:none" id="iframeAudio"></iframe>
+      <audio autoplay loop>
+        <source src="audio/[No Copyright Music] Unconditionally - Broken Elegance.mp3" type="audio/mpeg">
+      </audio>
+      <div id="footer" class="">
+        <svg id="scene" x="0%" y="0%" width="300%" height="100%"></svg>
+      </div>
+    </div>
+  </div>
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/universe.js"></script>
+  <script src="scripts/main.js"></script>
+  <!-- endbuild -->
+  <script src="js/three.min.js"></script>
+  <script src="js/MeshSurfaceSampler.js"></script>
+  <script src="js/TrackballControls.js"></script>
+  <script src="js/simplex-noise.js"></script>
+  <script src="js/OBJLoader.js"></script>
+  <script src="js/gsap.min.js"></script>
+  <script src="scripts/heart.js"></script>
+  <script src="scripts/fireworks-core.js"></script>
+  <script>Fireworks.init(document.getElementById('fireworks-overlay')); Fireworks.attachClick()</script>
+</body>
+
+</html>
