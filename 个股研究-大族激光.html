@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>大族激光 002008 · 深度研报</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]}};</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root{--bg:#0c0f15;--card-bg:#1a1c24;--card-bg-alt:#1e2029;--border:#2a2d3a;--text-primary:#e8e9ec;--text-secondary:#b0b3be;--text-muted:#7a7d8a;--red-up:#f55656;--green-down:#28c75b;--gold:#d4a853;--gold-light:#e3c26d;--blue-accent:#4a90d9;--orange-warn:#e8923a;--shadow:0 4px 20px rgba(0,0,0,0.3);--radius:10px;--font-sans:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;--font-mono:"JetBrains Mono","SF Mono","Consolas",monospace;--transition:0.2s ease;}
+body.light-mode{--bg:#fdf8f0;--card-bg:#fffbf5;--card-bg-alt:#fef5e7;--border:#e2cfa2;--text-primary:#2a1f12;--text-secondary:#6b5634;--text-muted:#9c8b6e;--red-up:#dc2626;--green-down:#16a34a;--gold:#b38a3c;--gold-light:#d4a853;--blue-accent:#2563eb;--orange-warn:#c2410c;--shadow:0 4px 20px rgba(162,125,57,0.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text-primary);font-family:var(--font-sans);line-height:1.7;font-size:14px;background-image:radial-gradient(circle at 15% 10%,rgba(212,168,83,0.03) 0%,transparent 35%),radial-gradient(circle at 85% 70%,rgba(212,168,83,0.03) 0%,transparent 35%);background-attachment:fixed}
+.top-nav{position:sticky;top:0;z-index:100;background:rgba(10,12,18,0.92);backdrop-filter:blur(12px);border-bottom:2px solid var(--gold-light);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.top-nav .logo{display:flex;align-items:center;gap:10px;color:#fff}
+.top-nav .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,#c0392b,#8b0000);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff}
+.top-nav .stock-name{font-weight:700;font-size:17px;letter-spacing:0.5px}
+.top-nav .stock-code{font-size:12px;opacity:0.7;font-family:var(--font-mono)}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}
+.nav-links a{font-size:12px;padding:5px 14px;border-radius:16px;color:var(--gold-light);text-decoration:none;border:1px solid transparent;transition:var(--transition);font-weight:500;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{background:rgba(255,255,255,0.08);color:#fff;border-color:var(--gold)}
+.theme-toggle{background:rgba(255,255,255,0.08);border:1px solid var(--gold-light);color:var(--gold-light);padding:5px 14px;border-radius:16px;font-size:12px;cursor:pointer;transition:var(--transition);margin-left:12px}
+.theme-toggle:hover{background:rgba(255,255,255,0.15)}
+.container{max-width:1300px;margin:0 auto;padding:24px 20px 40px}
+.hero{background:linear-gradient(105deg,#1c1010 0%,#2c1a1a 50%,#3d2424 100%);border-radius:var(--radius);padding:28px 32px;margin-bottom:24px;border:1px solid var(--gold-light);box-shadow:0 8px 28px rgba(100,55,55,0.2);display:flex;flex-wrap:wrap;gap:24px;align-items:center;color:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-price-block{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;z-index:1}
+.hero-price{font-size:56px;font-weight:900;line-height:1;font-family:var(--font-mono)}
+.hero-change{font-size:20px;font-weight:700;padding:4px 12px;border-radius:6px;background:rgba(245,86,86,0.2);color:#f87171;font-family:var(--font-mono)}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;z-index:1}
+.hero-meta-item{text-align:center}
+.hero-meta-item .val{font-size:22px;font-weight:700;font-family:var(--font-mono);color:var(--gold-light)}
+.hero-meta-item .label{font-size:11px;color:rgba(255,255,255,0.7);letter-spacing:1px}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;z-index:1}
+.hero-tag{background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold-light);padding:4px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.conclusion-top{background:linear-gradient(135deg,#1e1a10 0%,#241f14 100%);border:2px solid var(--gold);border-radius:var(--radius);padding:22px 28px;margin-bottom:24px;position:relative}
+.conclusion-top::before{content:'核心结论';position:absolute;top:-13px;left:24px;background:var(--gold);color:#000;padding:3px 16px;border-radius:12px;font-weight:700;font-size:12px;letter-spacing:1px}
+.conclusion-top .big-verdict{font-weight:800;font-size:20px;color:#fff;margin-top:8px}
+.conclusion-top .verdict-detail{font-size:14px;color:var(--text-secondary);margin-top:8px;line-height:1.7}
+.conclusion-top .verdict-tags{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:22px 28px;margin-bottom:20px;box-shadow:var(--shadow);transition:var(--transition)}
+.card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.5);border-color:var(--gold)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.card-header .icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:var(--gold)}
+.card-header h2{font-size:18px;font-weight:700;color:#fff;letter-spacing:0.5px}
+.card-header .sub{margin-left:auto;font-size:11px;color:var(--text-muted)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.news-list{max-height:300px;overflow-y:auto;font-size:13px}
+.news-item{display:flex;align-items:baseline;gap:6px;padding:7px 0;border-bottom:1px dashed var(--border);color:var(--text-secondary)}
+.news-item .bullet{color:var(--red-up);font-weight:700;font-size:16px}
+.news-date{font-size:11px;color:var(--text-muted);font-family:var(--font-mono);white-space:nowrap}
+.tag{display:inline-block;padding:3px 12px;border-radius:14px;font-size:11px;font-weight:600;background:rgba(212,168,83,0.15);color:var(--gold-light);border:1px solid var(--gold);margin-right:6px;margin-bottom:4px}
+table.cons{width:100%;border-collapse:collapse;font-size:13px;background:var(--card-bg-alt);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0}
+table.cons thead th{background:linear-gradient(180deg,#2c1a1a 0%,#1c1010 100%);color:#fff;font-weight:600;padding:10px 12px;text-align:left;font-size:12px;letter-spacing:1px}
+table.cons tbody tr{border-bottom:1px dashed var(--border)}
+table.cons tbody tr:hover{background:rgba(255,255,255,0.02)}
+table.cons tbody td{padding:9px 12px;vertical-align:middle;color:var(--text-secondary)}
+.val-up{color:var(--red-up);font-weight:600}
+.val-down{color:var(--green-down);font-weight:600}
+.chain-svg{background:var(--card-bg-alt);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin:16px 0;text-align:center;overflow:hidden}
+.chain-svg svg{max-width:100%;height:auto}
+.chain-svg .svg-hdr{fill:#e8e9ec;font-size:14px;font-weight:700}
+.chain-svg .svg-sub{fill:#b0b3be;font-size:12px}
+body.light-mode .chain-svg .svg-hdr{fill:#2a1f12}
+body.light-mode .chain-svg .svg-sub{fill:#6b5634}
+.scenario{background:var(--card-bg-alt);border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-align:center;border-left:4px solid var(--gold)}
+.scenario.bear{border-left-color:var(--green-down)}
+.scenario.bull{border-left-color:var(--red-up)}
+.scenario .prob{font-size:11px;color:var(--text-muted)}
+.alert-list{list-style:none;padding:0}
+.alert-list li{padding:8px 14px;margin:6px 0;border-radius:6px;background:var(--card-bg-alt);border-left:4px solid var(--orange-warn);font-size:13px;font-weight:500;color:var(--text-secondary)}
+.rating-callout{background:linear-gradient(135deg,#1e1a10 0%,#241f14 100%);border:2px solid var(--gold);border-radius:var(--radius);padding:18px 24px;margin-top:16px;display:flex;align-items:center;gap:16px}
+.rating-callout .badge{min-width:64px;height:64px;border-radius:50%;background:var(--gold);color:#000;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;letter-spacing:1px}
+.rating-callout .body{flex:1}
+.rating-callout .body .title{font-size:16px;font-weight:700;color:#fff}
+.rating-callout .body .desc{font-size:12px;color:var(--text-secondary);margin-top:4px;line-height:1.6}
+.verdict-highlight{background:var(--card-bg-alt);border-radius:10px;padding:18px 22px;margin-top:8px}
+.verdict-highlight .judgment{font-size:22px;font-weight:800;color:var(--gold);text-align:center;margin-bottom:12px}
+.verdict-highlight .verdict-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.verdict-highlight .verdict-item{text-align:center;padding:8px}
+.verdict-highlight .verdict-item .v-val{font-size:18px;font-weight:800}
+.verdict-highlight .verdict-item .v-label{font-size:11px;color:var(--text-muted);margin-top:2px}
+.score-bar{display:flex;align-items:center;gap:8px;margin:6px 0}
+.score-bar .score-label{width:100px;text-align:right;font-size:12px;color:var(--text-muted)}
+.score-bar .score-track{flex:1;height:8px;background:#2a2d3a;border-radius:6px;overflow:hidden}
+.score-bar .score-fill{height:100%;border-radius:6px;background:var(--gold)}
+.score-bar .score-num{width:50px;font-size:13px;font-weight:700;text-align:center;color:var(--text-primary)}
+.kpi-info-row{display:flex;justify-content:space-around;margin-top:18px;padding-top:14px;border-top:2px solid var(--border)}
+.kpi-info-item{text-align:center}
+.kpi-info-item .label{font-size:12px;color:var(--text-muted)}
+.kpi-info-item .value{font-size:20px;font-weight:700;color:var(--gold-light)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;font-size:13px}
+.info-grid dt{color:var(--text-muted)}
+.info-grid dd{color:var(--text-secondary);font-weight:500}
+.checklist{list-style:none;padding:0;font-size:13px}
+.checklist li{padding:5px 0;color:var(--text-secondary)}
+.checklist li::before{content:'☐ ';color:var(--gold)}
+@media(max-width:850px){.grid-2,.grid-3{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}.hero-price{font-size:40px}}
+footer{text-align:center;padding:24px 16px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border);margin-top:24px}
+body.light-mode .top-nav{background:rgba(255,251,245,0.92);border-bottom-color:var(--gold)}
+body.light-mode .nav-links a{color:var(--gold)}
+body.light-mode .nav-links a:hover,body.light-mode .nav-links a.active{background:rgba(0,0,0,0.05);color:#7f1d1d}
+body.light-mode .hero{background:linear-gradient(105deg,#fef5e7,#fffbf5);color:var(--text-primary);border-color:var(--gold)}
+body.light-mode .hero-price{color:var(--text-primary)}
+body.light-mode .hero-change{background:rgba(220,38,38,0.1);color:var(--red-up)}
+body.light-mode .hero-meta-item .val{color:var(--gold)}
+body.light-mode .hero-meta-item .label{color:var(--text-muted)}
+body.light-mode .hero-tag{background:rgba(212,168,83,0.15);border-color:var(--gold);color:var(--gold)}
+body.light-mode .conclusion-top{background:linear-gradient(135deg,#fff9f0,#fef5e7)}
+body.light-mode .conclusion-top .big-verdict{color:var(--text-primary)}
+body.light-mode .card-header h2{color:var(--text-primary)}
+body.light-mode .tag{background:rgba(212,168,83,0.15);color:var(--gold);border-color:var(--gold)}
+body.light-mode table.cons thead th{background:linear-gradient(180deg,#f55656,#c0392b)}
+body.light-mode .score-bar .score-track{background:#f0e4ce}
+body.light-mode .rating-callout{background:linear-gradient(135deg,#fff9f0,#fef5e7)}
+body.light-mode .rating-callout .body .title{color:var(--text-primary)}
+body.light-mode .verdict-highlight{background:#fef5e7}
+body.light-mode .verdict-highlight .judgment{color:var(--gold)}
+body.light-mode .verdict-highlight .v-val{color:var(--text-primary)}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+<div class="logo"><div class="logo-icon">族</div><span class="stock-name">大族激光</span><span class="stock-code">002008.SZ</span></div>
+<div class="nav-links">
+<a href="#hero" class="active">行情</a><a href="#conclusion-top">结论</a><a href="#profile">画像</a><a href="#kline-section">K线</a><a href="#mission">任务</a><a href="#macro">宏观</a><a href="#chain">产业链</a><a href="#quality">质量</a><a href="#elasticity">弹性</a><a href="#risk">风险</a><a href="#valuation">估值</a><a href="#compare">对标</a><a href="#tracking">跟踪</a>
+</div>
+<button class="theme-toggle" id="themeToggle">☀️ 浅色模式</button>
+</nav>
+<div class="container">
+<div class="hero" id="hero">
+<div class="hero-price-block"><span class="hero-price">143.30</span><span class="hero-change">-3.97%</span></div>
+<div class="hero-meta">
+<div class="hero-meta-item"><div class="val">C+级</div><div class="label">公司质地</div></div>
+<div class="hero-meta-item"><div class="val">95-120元</div><div class="label">中期目标价</div></div>
+<div class="hero-meta-item"><div class="val">-25%期望</div><div class="label">盈亏比</div></div>
+<div class="hero-meta-item"><div class="val" style="color:var(--red-up);">⚠️ 高</div><div class="label">风险等级</div></div>
+</div>
+<div class="hero-tags"><span class="hero-tag">激光龙头</span><span class="hero-tag">PCB设备</span><span class="hero-tag">AI算力</span><span class="hero-tag">半导体</span></div>
+</div>
+
+<div class="conclusion-top" id="conclusion-top">
+<div class="big-verdict">🎯 结论：AI驱动PCB设备景气周期的核心受益标的，但1476亿市值（124x P/E）已严重透支业绩预期，风险收益比极度不利，建议"回避现价，等待回调"</div>
+<div class="verdict-detail">
+大族激光是中国激光设备行业龙头（市占率约15-20%），2025年营收187.59亿(+27%)，归母净利11.90亿。核心增长引擎为<strong style="color:#f55656;">PCB智能制造装备</strong>（营收57.73亿、毛利率35.1%），直接受益于AI数据中心建设驱动的PCB厂商资本开支扩张。但营收占比69.2%的传统激光设备毛利率仅32.5%且持续承压，叠加年研发投入20.65亿（占营收11%），ROE仅7.2%。<strong>当前124x P/E处于历史极端高位，52周涨幅527%已充分甚至过度定价了AI+半导体预期。建议等待回调至95-120元（P/E 60-77x）分批建仓。</strong>核心跟踪指标：PCB设备订单增速、毛利率变化趋势。
+</div>
+<div class="verdict-tags"><span class="tag">交易型</span><span class="tag">高贝塔成长</span><span class="tag">择时参与</span><span class="tag">仓位≤10%</span><span class="tag">五维61/100</span></div>
+</div>
+
+<div class="grid-2" id="profile">
+<div class="card">
+<div class="card-header"><span class="icon">🏢</span><h2>公司画像</h2></div>
+<p><strong style="color:#f55656;">主营业务：</strong>其他智能制造装备(69.2%)、PCB智能制造装备(30.8%) — 激光打标/切割/焊接+PCB钻孔/曝光+半导体激光加工</p>
+<div style="margin:12px 0;"><span class="tag">激光设备龙头</span><span class="tag">PCB设备高景气</span><span class="tag">AI+半导体双主线</span><span class="tag">23年行业深耕</span></div>
+<dl class="info-grid" style="margin-top:12px;">
+<dt>公司全称</dt><dd>大族激光科技产业集团股份有限公司</dd>
+<dt>上市日期</dt><dd>2004-06-25 · 深圳主板</dd>
+<dt>注册地</dt><dd>广东省深圳市南山区</dd>
+<dt>所属行业</dt><dd>智能制造装备 / 激光设备</dd>
+<dt>总股本</dt><dd>10.30亿股</dd>
+<dt>实际控制人</dt><dd>高云峰(直接+间接≈24.5%)</dd>
+<dt>员工人数</dt><dd>约15,000人</dd>
+<dt>研发费用</dt><dd>20.65亿（营收占比11%）</dd>
+<dt>官网</dt><dd>www.hanslaser.com</dd>
+</dl>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:10px;">亚洲最大、全球前三的激光加工设备厂商，1996年创立于深圳。从激光打标起家逐步拓展至切割、焊接、PCB、半导体、新能源等全品类激光设备。核心技术覆盖CO2激光、光纤激光、紫外激光、超快激光等，产品应用于消费电子、PCB、半导体、新能源、汽车等20+行业。FY2025营收187.59亿，为国内激光设备行业绝对龙头。</p>
+</div>
+<div class="card">
+<div class="card-header"><span class="icon">📰</span><h2>近期动态</h2></div>
+<div class="news-list">
+<div class="news-item"><span class="bullet">•</span> <span class="news-date">2026-05-15</span> 收盘143.30元跌3.97%，成交78.12亿，换手5.3%，高位放量震荡</div>
+<div class="news-item"><span class="bullet">•</span> <span class="news-date">2026-04-21</span> FY2025营收187.59亿(+27.0%)，归母净利11.90亿(-29.8%)，扣非净利8.10亿(+82.2%)</div>
+<div class="news-item"><span class="bullet">•</span> <span class="news-date">2026-04-21</span> Q1 2026营收51.35亿，归母净利3.54亿，扣非4.08亿(+467%)</div>
+<div class="news-item"><span class="bullet">•</span> <span class="news-date">2026-04-24</span> 中邮证券："强大民族，装备世界"，买入评级，2026E EPS 2.25元</div>
+<div class="news-item"><span class="bullet">•</span> <span class="news-date">2025-12-24</span> 华鑫证券：业务结构优化，高景气赛道成增长引擎，买入评级</div>
+<div class="news-item"><span class="bullet">•</span> <span class="news-date">2026-05</span> 52周涨幅527%，从22.83元→156.50元，AI+PCB设备驱动史诗级上涨</div>
+<div class="news-item"><span class="bullet">•</span> <span class="news-date">2026-04</span> Q1 2026吸收投资48.18亿，资本公积大幅增加，可能为定增或子公司融资</div>
+<div class="news-item"><span class="bullet">•</span> <span class="news-date">2025全年</span> PCB激光设备订单旺盛，AI数据中心建设拉动高端PCB钻孔/LDI需求</div>
+</div>
+</div>
+</div>
+<div class="grid-2">
+<div class="card">
+<div class="card-header"><span class="icon">📊</span><h2>主营业务构成</h2><span class="sub">FY2025年报</span></div>
+<div id="chart-business-pie" style="width:100%;height:280px;"></div>
+<div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:6px;">
+其他智能制造装备(69.2%·毛利率32.5%) | PCB智能制造装备(30.8%·毛利率35.1%)
+</div>
+</div>
+<div class="card">
+<div class="card-header"><span class="icon">📈</span><h2>关键财务指标</h2><span class="sub">FY2021-FY2025</span></div>
+<table class="cons">
+<thead><tr><th>指标</th><th>FY2025</th><th>FY2024</th><th>FY2023</th><th>FY2022</th><th>FY2021</th></tr></thead>
+<tbody>
+<tr><td>营收(亿)</td><td>187.59</td><td>147.71</td><td>140.91</td><td>149.61</td><td>163.32</td></tr>
+<tr><td>营收增速</td><td class="val-up">+27.0%</td><td class="val-up">+4.8%</td><td class="val-down">-5.8%</td><td class="val-down">-8.4%</td><td class="val-up">+36.8%</td></tr>
+<tr><td>归母净利(亿)</td><td>11.90</td><td class="val-up">16.94</td><td>8.20</td><td>12.15</td><td>19.94</td></tr>
+<tr><td>扣非净利(亿)</td><td>8.10</td><td>4.45</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>毛利率</td><td>33.3%</td><td>31.8%</td><td>34.9%</td><td>35.2%</td><td>37.6%</td></tr>
+<tr><td>ROE</td><td>7.2%</td><td class="val-up">11.0%</td><td>5.6%</td><td>8.9%</td><td>18.7%</td></tr>
+</tbody></table>
+</div>
+</div>
+
+<div class="card" id="kline-section">
+<div class="card-header"><span class="icon">📈</span><h2>K线图 · 近120个交易日</h2><span class="sub">前复权日K · MA5/MA20/MA60</span></div>
+<div id="chart-kline-full" style="width:100%;height:480px;"></div>
+<div class="kpi-info-row">
+<div class="kpi-info-item"><div class="label">向上空间(目标160元)</div><div class="value">+11.7%</div></div>
+<div class="kpi-info-item"><div class="label">盈亏比(现值)</div><div class="value">-25%期望</div></div>
+<div class="kpi-info-item"><div class="label">目标价(中期)</div><div class="value">95-120元</div></div>
+<div class="kpi-info-item"><div class="label">建议周期</div><div class="value">6-12月</div></div>
+</div>
+</div>
+<!-- Step 0: 任务锁定 -->
+<div class="card" id="mission">
+<div class="card-header"><span class="icon">🎯</span><h2>任务锁定与核心矛盾</h2></div>
+<p style="color:var(--text-secondary);line-height:1.8;">大族激光是国内激光设备行业绝对龙头，当前处于<strong style="color:var(--red-up);">AI驱动PCB设备高景气+传统激光毛利率承压</strong>的矛盾阶段。PCB设备受益AI数据中心建设订单旺盛，但营收占比70%的传统激光设备毛利率持续下滑，ROE仅7.2%，呈现典型"高景气赛道×平庸盈利质量"特征。</p>
+<div style="margin-top:14px;display:flex;gap:16px;flex-wrap:wrap;">
+<div style="background:var(--card-bg-alt);padding:10px 16px;border-radius:8px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);">标的</div><div style="font-weight:700;color:#fff;">大族激光 002008.SZ</div></div>
+<div style="background:var(--card-bg-alt);padding:10px 16px;border-radius:8px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);">周期</div><div style="font-weight:700;color:var(--gold-light);">中线3-6月</div></div>
+<div style="background:var(--card-bg-alt);padding:10px 16px;border-radius:8px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);">风格预判</div><div style="font-weight:700;color:var(--orange-warn);">高贝塔交易型</div></div>
+<div style="background:var(--card-bg-alt);padding:10px 16px;border-radius:8px;text-align:center;"><div style="font-size:11px;color:var(--text-muted);">核心命题</div><div style="font-weight:700;color:#fff;">估值回归 vs 景气延续</div></div>
+</div>
+</div>
+
+<!-- Step 1: 宏观与周期定位 -->
+<div class="card" id="macro">
+<div class="card-header"><span class="icon">🌍</span><h2>宏观与周期定位</h2></div>
+<div style="margin-bottom:16px;">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">经济周期映射</h3>
+<ul style="list-style:none;padding:0;font-size:13px;color:var(--text-secondary);">
+<li style="padding:4px 0;">• 宏观经济阶段：中国制造业处于弱复苏区间，PMI荣枯线附近波动，但半导体/PCB产业链处于独立景气上行周期</li>
+<li style="padding:4px 0;">• 行业周期位置：AI大模型训练/推理需求爆发→数据中心建设加速→高端PCB产能缺口扩大→PCB激光设备需求旺盛，处于<strong style="color:var(--red-up);">加速扩张早期</strong></li>
+<li style="padding:4px 0;">• 政策周期："新型工业化"+半导体自主可控+国产替代政策，为国产激光设备提供长期政策支撑</li>
+<li style="padding:4px 0;">• 公司所处阶段：收入加速增长（FY2025 +27%），但利润率承压，处于"以量补价"的增长模式</li>
+</ul>
+</div>
+<div style="margin-bottom:16px;">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">政策与环境扫描</h3>
+<ul style="list-style:none;padding:0;font-size:13px;color:var(--text-secondary);">
+<li style="padding:4px 0;">• 新型工业化政策驱动：国家持续推出智能制造装备国产替代政策，激光设备作为核心装备受益</li>
+<li style="padding:4px 0;">• 半导体自主可控紧迫：美国对华先进芯片/设备出口管制趋严，加速半导体激光加工设备国产化</li>
+<li style="padding:4px 0;">• PCB产业东移加速：全球PCB产能持续向中国集中，鹏鼎/深南/景旺等国内厂商资本开支高涨</li>
+<li style="padding:4px 0;">• 行业竞争加剧：锐科激光/华工科技等在光纤激光器领域竞争白热化，中低端价格战持续</li>
+</ul>
+</div>
+<div style="background:var(--card-bg-alt);padding:14px 18px;border-radius:8px;border-left:4px solid var(--gold);">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:6px;">核心矛盾</h3>
+<p style="font-size:14px;color:var(--text-secondary);"><strong style="color:var(--red-up);">AI驱动的PCB设备需求爆发</strong> vs <strong style="color:var(--green-down);">低毛利率+弱现金流的盈利质量困局</strong> — 下游订单高增但盈利能力持续下滑（毛利率37.6%→33.3%），研发+销售费用占营收19%，ROE仅7.2%，何时实现"有利润的增长"是关键。</p>
+</div>
+</div>
+
+<!-- Step 2: 产业链深度拆解 -->
+<div class="card" id="chain">
+<div class="card-header"><span class="icon">🔗</span><h2>产业链深度拆解</h2></div>
+<div style="margin-bottom:16px;">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">题材来源判断</h3>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+1. <strong style="color:var(--red-up);">AI算力-设备层（核心驱动力）：</strong>AI大模型→数据中心→高端PCB→PCB激光钻孔/曝光设备需求，大族PCB设备营收占比30.8%、毛利率35.1%<br>
+2. <strong style="color:var(--gold-light);">半导体国产替代（远期期权）：</strong>美国出口管制→半导体激光加工设备国产化，公司晶圆划片/先进封装设备处于量产导入期<br>
+3. <strong style="color:var(--text-muted);">传统激光设备（基本盘）：</strong>激光打标/切割/焊接，市场成熟，增速平稳，毛利率持续承压
+</p>
+</div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">产业链图谱</h3>
+<div class="chain-svg">
+<svg viewBox="0 0 800 195" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="4" orient="auto"><polygon points="0 0,10 4,0 8" fill="#d4a853"/></marker></defs>
+<rect x="10" y="30" width="150" height="120" fill="var(--card-bg-alt)" stroke="#d4a853" stroke-width="2" rx="10"/>
+<text x="85" y="58" text-anchor="middle" font-weight="700" font-size="14" class="svg-hdr">上游·核心零部件</text>
+<text x="85" y="78" text-anchor="middle" font-size="12" class="svg-sub">激光器(IPG/锐科/创鑫)</text>
+<text x="85" y="96" text-anchor="middle" font-size="12" class="svg-sub">运动控制系统</text>
+<text x="85" y="114" text-anchor="middle" font-size="12" class="svg-sub">光学器件(Ⅱ-Ⅵ/福晶)</text>
+<text x="85" y="132" text-anchor="middle" font-size="12" class="svg-sub">精密机械件</text>
+<line x1="160" y1="90" x2="210" y2="90" stroke="#d4a853" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="220" y="20" width="250" height="140" fill="var(--card-bg-alt)" stroke="#f55656" stroke-width="3" rx="12"/>
+<text x="345" y="48" text-anchor="middle" font-weight="800" font-size="16" fill="#f55656">中游·激光设备制造</text>
+<text x="345" y="68" text-anchor="middle" font-size="12" class="svg-hdr">传统:打标/切割/焊接</text>
+<text x="345" y="88" text-anchor="middle" font-size="12" class="svg-hdr">增长:PCB钻孔/LDI/AOI</text>
+<text x="345" y="108" text-anchor="middle" font-size="12" class="svg-sub">远期:半导体划片/先进封装</text>
+<text x="345" y="128" text-anchor="middle" font-size="12" class="svg-sub">新能源:锂电/光伏激光</text>
+<text x="345" y="148" text-anchor="middle" font-size="12" class="svg-sub">大族激光核心位置</text>
+<line x1="470" y1="90" x2="520" y2="90" stroke="#d4a853" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="530" y="30" width="250" height="120" fill="var(--card-bg-alt)" stroke="#d4a853" stroke-width="2" rx="10"/>
+<text x="655" y="58" text-anchor="middle" font-weight="700" font-size="14" class="svg-hdr">下游·终端应用</text>
+<text x="655" y="78" text-anchor="middle" font-size="12" class="svg-sub">PCB:鹏鼎/深南/景旺/东山</text>
+<text x="655" y="96" text-anchor="middle" font-size="12" class="svg-sub">消费电子:苹果/华为/小米</text>
+<text x="655" y="114" text-anchor="middle" font-size="12" class="svg-sub">半导体:中芯/长电/通富</text>
+<text x="655" y="132" text-anchor="middle" font-size="12" class="svg-sub">新能源:宁德/比亚迪/隆基</text>
+</svg>
+</div>
+<div class="grid-2" style="margin-top:16px;">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">趋势三要素</h3>
+<table class="cons"><thead><tr><th>维度</th><th>评估</th><th>打分</th></tr></thead>
+<tbody>
+<tr><td>下游需求景气</td><td>PCB厂商资本开支高位，AI数据中心加速建设</td><td>⭐⭐⭐⭐</td></tr>
+<tr><td>国产替代进度</td><td>PCB设备国产化率60%+，但高端半导体仍进口</td><td>⭐⭐⭐</td></tr>
+<tr><td>竞争格局</td><td>中低端价格战持续，高端市场有技术壁垒</td><td>⭐⭐⭐</td></tr>
+</tbody></table>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">价值链利润分布</h3>
+<table class="cons"><thead><tr><th>环节</th><th>代表企业</th><th>毛利率</th></tr></thead>
+<tbody>
+<tr><td>上游激光器</td><td>IPG/锐科激光</td><td>35-55%</td></tr>
+<tr><td>上游光学器件</td><td>福晶科技</td><td style="color:var(--red-up);">50-60%</td></tr>
+<tr><td>中游激光设备</td><td>大族/华工</td><td style="color:var(--orange-warn);">28-38%</td></tr>
+<tr><td>下游PCB制造</td><td>鹏鼎/深南</td><td>20-30%</td></tr>
+</tbody></table>
+</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);margin-top:12px;padding:10px 14px;background:var(--card-bg-alt);border-radius:6px;">💡 <strong>关键判断：</strong>中游激光设备商处于"夹心层"——上游激光器厂商议价能力强，下游大客户集中度高。但PCB设备因技术壁垒较高（毛利率35.1%），显著优于传统激光设备（~30%），是改善盈利结构的关键。</p>
+</div>
+
+<!-- Step 3: 公司筛选与质量评分 -->
+<div class="card" id="quality">
+<div class="card-header"><span class="icon">⭐</span><h2>公司筛选与质量评分</h2><span class="sub">62.5/100 · C+级</span></div>
+<div class="grid-2">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">正面清单</h3>
+<table class="cons"><tbody>
+<tr><td>✅ 行业地位</td><td>国内激光设备市占率第一（15-20%）</td></tr>
+<tr><td>✅ 研发投入</td><td>年研发20.65亿，占比营收11%，绝对领先</td></tr>
+<tr><td>✅ 客户质量</td><td>覆盖苹果/华为/宁德/鹏鼎等头部客户</td></tr>
+<tr><td>✅ 成长性</td><td>FY2025营收+27%，扣非净利+82%（低基数）</td></tr>
+<tr><td>⚠️ 管理层</td><td>创始人持股24.5%，历史上关联交易争议</td></tr>
+</tbody></table>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">负面排查</h3>
+<table class="cons"><tbody>
+<tr><td>❌ 财务造假</td><td>无证据，审计意见标准无保留</td></tr>
+<tr><td>❌ 大股东侵占</td><td>大族控股曾高比例质押，需持续关注</td></tr>
+<tr><td>⚠️ 商誉暴雷</td><td>商誉0.94亿规模可控</td></tr>
+<tr><td>❌ 退市风险</td><td>营收187.59亿，主营业务正常</td></tr>
+<tr><td>⚠️ 应收恶化</td><td>应收账款90.57亿，占营收比例偏高</td></tr>
+</tbody></table>
+</div>
+</div>
+<div style="margin-top:16px;">
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">公司质地评分 · 100分制</h3>
+<div class="score-bar"><span class="score-label">行业地位</span><div class="score-track"><div class="score-fill" style="width:72%;"></div></div><span class="score-num">18/25</span></div>
+<div class="score-bar"><span class="score-label">成长性</span><div class="score-track"><div class="score-fill" style="width:68%;"></div></div><span class="score-num">14/20</span></div>
+<div class="score-bar"><span class="score-label">盈利能力</span><div class="score-track"><div class="score-fill" style="width:48%;background:var(--orange-warn);"></div></div><span class="score-num">10/20</span></div>
+<div class="score-bar"><span class="score-label">财务健康</span><div class="score-track"><div class="score-fill" style="width:55%;background:var(--orange-warn);"></div></div><span class="score-num">8/15</span></div>
+<div class="score-bar"><span class="score-label">研发创新</span><div class="score-track"><div class="score-fill" style="width:78%;"></div></div><span class="score-num">8/10</span></div>
+<div class="score-bar"><span class="score-label">治理管理</span><div class="score-track"><div class="score-fill" style="width:52%;background:var(--orange-warn);"></div></div><span class="score-num">5/10</span></div>
+<div class="rating-callout">
+<div class="badge">63</div>
+<div class="body"><div class="title">62.5 / 100 · 好赛道，中等质地</div><div class="desc">行业地位稳固（市占率第一）、研发投入绝对值领先（20.65亿）是核心加分项。但盈利能力偏弱（ROE仅7.2%）、现金流波动大（Q1 2026经营现金流为负）、治理结构存在瑕疵（关联交易/质押历史），属于"好赛道但中等质地"类型。评分偏低的核心原因是30分以上的盈利和财务健康扣分。</div></div>
+</div>
+</div>
+</div>
+<!-- Step 4: 业绩弹性测算 -->
+<div class="card" id="elasticity">
+<div class="card-header"><span class="icon">⚡</span><h2>业绩弹性测算</h2></div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">分业务弹性树</h3>
+<div style="background:var(--card-bg-alt);border:2px solid var(--gold);border-radius:10px;padding:16px;margin-bottom:16px;">
+<div style="display:flex;flex-direction:column;align-items:center;">
+<div style="background:linear-gradient(135deg,#1e1a10,#2c1a1a);border:2px solid var(--gold);border-radius:10px;padding:10px 24px;font-weight:700;font-size:15px;color:#fff;">大族激光 FY2025营收 187.59亿 · 归母净利11.90亿</div>
+<div style="text-align:center;width:100%;"><span style="display:inline-block;width:2px;height:6px;background:var(--gold);vertical-align:top;"></span></div>
+<div style="display:flex;width:100%;">
+<div style="flex:2;padding-right:5px;text-align:center;border-top:2px solid var(--gold);"><span style="display:inline-block;width:2px;height:8px;background:var(--gold);vertical-align:top;"></span></div>
+<div style="flex:1;padding:0 5px;text-align:center;border-top:2px solid var(--gold);"><span style="display:inline-block;width:2px;height:8px;background:var(--gold);vertical-align:top;"></span></div>
+<div style="flex:1;padding-left:5px;text-align:center;border-top:2px solid var(--gold);"><span style="display:inline-block;width:2px;height:8px;background:var(--gold);vertical-align:top;"></span></div>
+</div>
+<div style="display:flex;gap:10px;width:100%;">
+<div style="flex:2;background:rgba(245,86,86,0.08);border:1px solid rgba(245,86,86,0.3);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-weight:700;color:var(--red-up);font-size:14px;">🔴 传统激光设备</div>
+<div style="font-size:11px;color:var(--text-muted);">~48%营收·~90亿·毛利率~30%</div>
+<div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">激光打标/切割/焊接<br>消费电子/汽车/五金</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">弹性因子β=0.6·制造业复苏敏感</div>
+</div>
+<div style="flex:1;background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.3);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-weight:700;color:var(--gold-light);font-size:13px;">🟡 PCB设备</div>
+<div style="font-size:11px;color:var(--text-muted);">30.8%营收·57.7亿·毛利率35.1%</div>
+<div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">PCB激光钻孔/LDI/AOI<br>AI数据中心驱动</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">弹性因子β=1.5·AI算力投资驱动</div>
+</div>
+<div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-weight:700;color:var(--text-secondary);font-size:13px;">⚪ 半导体+新能源</div>
+<div style="font-size:11px;color:var(--text-muted);">~5%营收·~10亿·毛利率~40%</div>
+<div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">晶圆划片/先进封装<br>锂电/光伏激光</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">弹性因子β=2.0·国产替代加速</div>
+</div>
+</div>
+</div>
+</div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">价格敏感度公式</h3>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:14px 18px;margin-bottom:12px;">
+<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;text-align:center;">核心公式</div>
+<div style="font-family:var(--font-mono);font-size:14px;color:var(--text-primary);text-align:center;padding:10px 16px;background:rgba(245,86,86,0.06);border-radius:8px;margin-bottom:10px;">
+<strong>PCB设备收入弹性 \(E_{PCB}\) = 1.2 &times; 下游资本开支增速</strong>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+<div style="background:rgba(212,168,83,0.08);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">PCB占比提升效应</div>
+<div style="font-size:14px;font-family:var(--font-mono);color:var(--text-primary);">
+PCB占比每+1pp → 综合毛利率<strong style="color:var(--gold-light);font-size:16px;">+0.03pp</strong>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">PCB毛利率高2.6pp</div>
+</div>
+<div style="background:rgba(245,86,86,0.08);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">隐含PE弹性</div>
+<div style="font-size:14px;font-family:var(--font-mono);color:var(--text-primary);">
+EPS 2.0元 → PE <strong style="color:var(--orange-warn);font-size:16px;">72x</strong>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">EPS 2.5元 → PE 57x</div>
+</div>
+<div style="background:rgba(40,199,91,0.06);border-radius:8px;padding:12px;text-align:center;">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">毛利率敏感性</div>
+<div style="font-size:14px;font-family:var(--font-mono);color:var(--text-primary);">
+ΔGPM = <strong style="color:var(--green-down);">\(w_{PCB} \times \Delta GPM_{PCB}\)</strong>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">PCB权重30.8%</div>
+</div>
+<div style="background:rgba(245,86,86,0.1);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(245,86,86,0.3);">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">远期估值收缩风险</div>
+<div style="font-size:14px;font-family:var(--font-mono);color:var(--text-primary);">
+当前P/E 124x → 历史中枢<strong style="color:var(--red-up);font-size:18px;">40-50x</strong>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">均值回归将带来50-60%下跌</div>
+</div>
+</div>
+<div style="margin-top:10px;font-size:12px;color:var(--text-muted);padding:8px 12px;background:rgba(212,168,83,0.08);border-radius:6px;">💡 关键结论：弹性核心不在"传统激光复苏"，而在"PCB设备占比提升"。PCB设备营收每增长10亿，约贡献<strong style="color:var(--gold-light);">3.5亿</strong>毛利增量。</div>
+</div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">情景分析</h3>
+<div class="grid-3">
+<div class="scenario bull"><strong>🟢 乐观情景</strong><div class="prob">概率 25%</div><div style="font-size:13px;color:var(--text-secondary);margin-top:6px;">PCB设备收入+60%<br>传统设备收入+10%<br>毛利率回升至34%+<br>FY2026营收260亿<br>归母净利21亿 EPS2.04<br><strong style="color:var(--red-up);">目标价140-160元</strong></div></div>
+<div class="scenario"><strong>🟡 基准情景</strong><div class="prob">概率 55%</div><div style="font-size:13px;color:var(--text-secondary);margin-top:6px;">PCB设备收入+40%<br>传统设备收入+5%<br>毛利率稳定33%<br>FY2026营收230亿<br>归母净利16亿 EPS1.55<br><strong style="color:var(--gold-light);">目标价95-120元</strong></div></div>
+<div class="scenario bear"><strong>🔴 悲观情景</strong><div class="prob">概率 20%</div><div style="font-size:13px;color:var(--text-secondary);margin-top:6px;">PCB需求骤降+20%<br>传统设备零增长<br>毛利率跌破31%<br>FY2026营收200亿<br>归母净利12.5亿 EPS1.21<br><strong style="color:var(--green-down);">目标价60-80元</strong></div></div>
+</div>
+</div>
+
+<!-- Step 5: 风险分析 -->
+<div class="card" id="risk">
+<div class="card-header"><span class="icon">⚠️</span><h2>风险分析</h2><span class="sub">5个强制止损信号</span></div>
+<div class="grid-2">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">风险清单</h3>
+<table class="cons"><thead><tr><th>风险类型</th><th>描述</th><th>影响</th><th>概率</th></tr></thead>
+<tbody>
+<tr><td>🔴 估值回归</td><td>P/E 124x历史极高位，均值回归风险</td><td class="val-down">致命</td><td>高(70%)</td></tr>
+<tr><td>🔴 毛利率下滑</td><td>中低端激光价格战持续，毛利率承压</td><td class="val-down">重大</td><td>中(40%)</td></tr>
+<tr><td>🟡 应收账款恶化</td><td>应收90.57亿占营收比偏高，坏账风险</td><td style="color:var(--orange-warn);">重大</td><td>中(30%)</td></tr>
+<tr><td>🟡 AI投资过热回调</td><td>PCB产能过剩，资本开支骤降</td><td style="color:var(--orange-warn);">中等</td><td>中(30%)</td></tr>
+<tr><td>🟡 子业务分拆争议</td><td>大族数控关联交易/利益输送历史</td><td style="color:var(--orange-warn);">中等</td><td>低(15%)</td></tr>
+<tr><td>⚪ 技术迭代风险</td><td>超快激光/飞秒激光路线替代</td><td style="color:var(--orange-warn);">中等</td><td>低(20%)</td></tr>
+</tbody></table>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--orange-warn);margin-bottom:10px;">逻辑破坏条件（止损信号）</h3>
+<ul class="alert-list">
+<li><strong>1.</strong> PCB设备订单增速降至20%以下 → 增长引擎熄火</li>
+<li><strong>2.</strong> 综合毛利率跌破30% → 盈利质量持续恶化</li>
+<li><strong>3.</strong> 单季度经营现金流转负并持续2个季度 → 应收恶化信号</li>
+<li><strong>4.</strong> 实控人大比例减持或高比例质押触警 → 治理风险信号</li>
+<li><strong>5.</strong> 股价跌破120元（约P/E 100x）→ 趋势破坏+机构松动</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- Step 6: 估值与买卖时机 -->
+<div class="card" id="valuation">
+<div class="card-header"><span class="icon">💰</span><h2>估值与买卖时机</h2><span class="sub">P/E 124x · 盈亏比 -25%期望</span></div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">三种估值方法交叉验证</h3>
+<table class="cons"><thead><tr><th>估值方法</th><th>计算依据</th><th>合理市值</th><th>对应股价</th></tr></thead>
+<tbody>
+<tr><td><strong>PEG估值</strong></td><td>2026E EPS 1.55-2.04 × PEG 1.0-1.5x</td><td>730-1570亿</td><td>71-152元</td></tr>
+<tr><td><strong style="color:var(--gold-light);">PE历史分位</strong></td><td>近5年PE中枢40-50x × 2026E EPS</td><td style="color:var(--gold-light);">640-1040亿</td><td style="color:var(--gold-light);">62-101元</td></tr>
+<tr><td><strong style="color:var(--green-down);">DCF交叉验证</strong></td><td>WACC 9% + 永续增长3% + FCF/净利60%</td><td style="color:var(--green-down);">570-820亿</td><td style="color:var(--green-down);">55-80元</td></tr>
+</tbody></table>
+<div class="grid-2" style="margin-top:12px;">
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:12px;font-size:13px;">
+<strong style="color:var(--gold);">资金面分析</strong>
+<p style="color:var(--text-secondary);margin-top:4px;">· 近20日主力资金累计净流出1.16亿<br>· H1 2026吸收投资48.18亿，增发稀释担忧<br>· 融资余额高位，5/15成交78亿(换手5.3%)<br>· 景林资产、人保寿险等机构持仓</p>
+</div>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:12px;font-size:13px;">
+<strong style="color:var(--gold);">技术面分析</strong>
+<p style="color:var(--text-secondary);margin-top:4px;">· MA5:141.92(微高于)<br>· MA60:80.36(极度偏离+79%)<br>· MA120:61.15(偏离+134%·历史极端)<br>· 52周:22.83-156.50(涨幅527%)<br>· 高位放量震荡，顶部信号明显</p>
+</div>
+</div>
+<h3 style="font-size:15px;color:var(--gold-light);margin:16px 0 10px;">三档目标价</h3>
+<table class="cons"><thead><tr><th>档位</th><th>时间窗口</th><th>目标价</th><th>空间</th><th>核心假设</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--red-up);">短期(阻力)</td><td>1-4周</td><td class="val-up">150-160元</td><td>+5~12%</td><td>前高压力位+AI情绪延续</td></tr>
+<tr><td style="color:var(--gold-light);">中期(合理)</td><td>3-6月</td><td>95-120元</td><td class="val-down">-16~-34%</td><td>P/E 60-77x(成长股合理区间)</td></tr>
+<tr><td>长期(价值)</td><td>12-18月</td><td>60-80元</td><td class="val-down">-44~-58%</td><td>P/E 40-50x(历史估值中枢回归)</td></tr>
+</tbody></table>
+<h3 style="font-size:15px;color:var(--gold-light);margin:16px 0 10px;">盈亏比量化</h3>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:14px;font-size:13px;">
+<p style="color:var(--text-secondary);text-align:center;margin-bottom:8px;">
+<strong>现价 143.30元</strong> →
+向上空间（目标160元）：<strong style="color:var(--red-up);">+11.7%</strong><br>
+向下空间（回调95元）：<strong style="color:var(--green-down);">-33.7%</strong>
+→ <strong style="color:var(--orange-warn);">期望盈亏比 -25.0% · 风险收益比极度不利</strong>
+</p>
+<div style="padding:8px 12px;background:rgba(212,168,83,0.08);border-radius:6px;margin-top:8px;">
+<p style="color:var(--text-secondary);text-align:center;">
+<strong style="color:var(--gold-light);">💡 回调介入方案：</strong> 95-120元分批建仓 → 目标160元 = <strong style="color:var(--red-up);">+33~68%</strong>，止损80元 = <strong style="color:var(--green-down);">-16~33%</strong> → <strong style="color:var(--gold);">盈亏比 1.4~2.9x</strong>
+</p>
+</div>
+</div>
+</div>
+<!-- Step 7: 对标分析 -->
+<div class="card" id="compare">
+<div class="card-header"><span class="icon">📊</span><h2>对标分析</h2><span class="sub">激光设备龙头享有估值溢价，但盈利质量处于行业中下水平</span></div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:10px;">案例类比</h3>
+<table class="cons"><thead><tr><th>维度</th><th>大族激光</th><th>华工科技</th><th>锐科激光</th><th>杰普特</th></tr></thead>
+<tbody>
+<tr><td>核心定位</td><td style="color:var(--gold-light);">激光设备全品类</td><td>激光+传感器</td><td>光纤激光器</td><td>MOPA激光器</td></tr>
+<tr><td>FY2025营收</td><td>187.59亿</td><td>~100亿</td><td>~40亿</td><td>~15亿</td></tr>
+<tr><td>FY2025净利</td><td>11.90亿</td><td>~8亿</td><td>~2亿</td><td>~1.5亿</td></tr>
+<tr><td>毛利率</td><td style="color:var(--orange-warn);">33.3%</td><td>~28%</td><td>~35%</td><td style="color:var(--red-up);">~40%</td></tr>
+<tr><td>P/E(TTM)</td><td style="color:var(--red-up);">124x</td><td>~75x</td><td>~100x</td><td>~53x</td></tr>
+<tr><td>核心看点</td><td>AI+PCB设备+半导体</td><td>激光+汽车电子</td><td>激光器国产替代</td><td>高毛利/高壁垒</td></tr>
+</tbody></table>
+<p style="font-size:13px;color:var(--text-secondary);margin-top:10px;">大族激光是行业中规模最大的公司，享有龙头估值溢价（124x PE）。但相比杰普特（高毛利率/高研发壁垒）和锐科激光（产业链更上游的核心部件），大族的盈利质量处于行业中下（ROE仅7.2%）。当前估值溢价中包含了过度乐观的AI+半导体预期，一旦不达预期将面临剧烈估值收缩。</p>
+<h3 style="font-size:15px;color:var(--gold-light);margin:16px 0 10px;">增长引擎切换</h3>
+<div style="display:flex;gap:12px;font-size:13px;color:var(--text-secondary);flex-wrap:wrap;">
+<div style="flex:1;min-width:180px;background:var(--card-bg-alt);padding:12px;border-radius:8px;opacity:0.6;"><strong>第一引擎(过去)：</strong><br>传统激光打标/切割/焊接 → 增速放缓，毛利率承压，从增长引擎变为现金牛</div>
+<div style="flex:1;min-width:180px;background:var(--card-bg-alt);padding:12px;border-radius:8px;border:1px solid var(--gold);"><strong style="color:var(--gold-light);">第二引擎(现在)：</strong><br>PCB激光钻孔/LDI/AOI → AI数据中心驱动，高景气可维持2-3年</div>
+<div style="flex:1;min-width:180px;background:var(--card-bg-alt);padding:12px;border-radius:8px;border:1px solid var(--red-up);"><strong style="color:var(--red-up);">第三引擎(未来)：</strong><br>半导体划片/先进封装 + 新能源锂电/光伏 → 远期期权，量产导入期</div>
+</div>
+</div>
+
+<!-- Step 8: 跟踪计划与综合结论 -->
+<div class="card" id="tracking">
+<div class="card-header"><span class="icon">📋</span><h2>跟踪计划与综合结论</h2><span class="sub">五维 61/100 · 高贝塔交易型 · 仓位≤10%</span></div>
+<div class="grid-2">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">分层跟踪锚点</h3>
+<table class="cons"><thead><tr><th>频率</th><th>跟踪指标</th><th>来源</th></tr></thead>
+<tbody>
+<tr><td>🔴 高频(日/周)</td><td>股价MA60偏离度、成交量异常、北向资金</td><td>行情软件</td></tr>
+<tr><td>🟡 中频(月)</td><td>PCB设备月度出货、激光器价格指数</td><td>行业协会</td></tr>
+<tr><td>⚪ 低频(季)</td><td>财报(毛利率/应收/经营现金流)</td><td>季报年报</td></tr>
+<tr><td>📌 事件驱动</td><td>AI基建政策、半导体出口管制、实控人减持</td><td>公司公告</td></tr>
+</tbody></table>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">执行清单</h3>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:12px;font-size:13px;">
+<p style="color:var(--red-up);font-weight:600;">短线（1-4周）：</p>
+<ul class="checklist">
+<li>若股价突破156元前高且放量，可轻仓跟随（止损140元）</li>
+<li>若股价跌破140元，清仓观望</li>
+<li>日成交额缩至30亿以下则趋势转弱</li>
+<li>止损位：<strong style="color:var(--green-down);">140元</strong></li>
+</ul>
+<p style="color:var(--red-up);font-weight:600;margin-top:8px;">中线（3-6个月）：</p>
+<ul class="checklist">
+<li>等待回调至95-120元区间(P/E 60-77x)分批建仓</li>
+<li>建仓条件：PCB订单增速>30%+毛利率>33%+经营现金流为正</li>
+<li>分3次建仓间距10%，目标仓位总资产5-8%</li>
+<li>目标价：<strong style="color:var(--red-up);">160元</strong>，止损：<strong style="color:var(--green-down);">80元</strong>（MA60跌破且基本面恶化）</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="grid-2" style="margin-top:14px;">
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">综合结论</h3>
+<div class="verdict-highlight">
+<div class="judgment">回避现价，等待估值回归后的配置机会</div>
+<div class="verdict-grid">
+<div class="verdict-item"><div class="v-val" style="color:var(--red-up);">⚠️ 高</div><div class="v-label">风险等级</div></div>
+<div class="verdict-item"><div class="v-val" style="color:var(--orange-warn);">回避现价</div><div class="v-label">操作建议</div></div>
+<div class="verdict-item"><div class="v-val" style="color:var(--red-up);">≤10%</div><div class="v-label">仓位上限</div></div>
+<div class="verdict-item"><div class="v-val">6-12月</div><div class="v-label">持仓周期</div></div>
+</div>
+</div>
+</div>
+<div>
+<h3 style="font-size:15px;color:var(--gold-light);margin-bottom:8px;">综合交易评分</h3>
+<div style="background:var(--card-bg-alt);border-radius:8px;padding:12px;">
+<div class="score-bar"><span class="score-label">基本面 62 (30%)</span><div class="score-track"><div class="score-fill" style="width:62%;"></div></div><span class="score-num">18.6</span></div>
+<div class="score-bar"><span class="score-label">资金面 45 (20%)</span><div class="score-track"><div class="score-fill" style="width:45%;background:var(--orange-warn);"></div></div><span class="score-num">9.0</span></div>
+<div class="score-bar"><span class="score-label">技术面 55 (20%)</span><div class="score-track"><div class="score-fill" style="width:55%;background:var(--orange-warn);"></div></div><span class="score-num">11.0</span></div>
+<div class="score-bar"><span class="score-label">情绪面 80 (15%)</span><div class="score-track"><div class="score-fill" style="width:80%;"></div></div><span class="score-num">12.0</span></div>
+<div class="score-bar"><span class="score-label">事件催化 70 (15%)</span><div class="score-track"><div class="score-fill" style="width:70%;"></div></div><span class="score-num">10.5</span></div>
+<div class="score-bar" style="margin-top:8px;padding-top:8px;border-top:2px solid var(--border);">
+<span class="score-label" style="font-weight:700;color:var(--text-primary);">加权总评</span>
+<div class="score-track"><div class="score-fill" style="width:61.1%;background:var(--gold);"></div></div>
+<span class="score-num" style="font-size:16px;font-weight:800;color:var(--gold);">61.1</span>
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top:14px;padding:14px 18px;background:rgba(245,86,86,0.08);border-left:4px solid var(--red-up);border-radius:6px;font-size:13px;color:var(--text-secondary);line-height:1.75;">
+<strong style="color:var(--red-up);font-size:15px;">📌 总结</strong><br>
+大族激光是AI驱动PCB设备景气周期的核心受益标的，行业地位稳固、研发投入领先（20.65亿/年）。但当前1476亿市值（124x P/E）已严重透支未来2-3年的业绩增长预期：52周涨幅527%、MA120偏离134%、近20日主力净流出1.16亿、Q1 2026增发稀释48亿。风险收益比极度不利（期望盈亏比-25%）。<strong style="color:var(--red-up);">建议现价(143.30元)不参与，等待回调至95-120元区间（P/E 60-77x）分批建仓，同时密切关注PCB设备订单增速和毛利率变化趋势。</strong>核心风险：估值回归+毛利率下行+AI投资过热回调。
+</div>
+</div>
+
+<footer>
+<p>⚠️ 免责声明：本报告仅供研究参考，不构成投资建议。投资有风险，决策需谨慎。</p>
+<p>数据截止：2026-05-15 | 研究状态：首次覆盖</p>
+<p style="font-size:11px;color:var(--text-muted);">数据来源：akshare(雪球/新浪/同花顺/东方财富/巨潮资讯) · GLM5.1 · DeepSeek-V4-Pro · Claude Opus-4.7 · 2026-05-03 · @明立玩AI · 个股深度研究系统 v2.2</p>
+<p style="margin-top:6px;">作者：明立 · AI教育资深玩家 · AI应用落地近4年经验</p>
+<p>📮 联系作者获取更多skill：ll-mingli1221</p>
+</footer>
+</div>
+<!-- .container end -->
+<script>
+(function() {
+const rawData = [
+["2025-11-13",38.69,39.56,38.58,39.44,19189331],
+["2025-11-14",38.89,39.06,38.00,38.00,19411029],
+["2025-11-17",37.91,38.56,37.77,38.12,14061133],
+["2025-11-18",38.17,38.50,37.66,38.30,14702229],
+["2025-11-19",38.53,38.98,38.10,38.25,12746920],
+["2025-11-20",38.46,38.61,37.36,37.52,16779735],
+["2025-11-21",37.18,37.40,36.40,36.40,19530510],
+["2025-11-24",36.40,36.98,35.83,36.38,15019542],
+["2025-11-25",36.50,37.02,36.30,36.55,13507327],
+["2025-11-26",36.55,36.72,36.31,36.38,12081078],
+["2025-11-27",36.50,36.62,36.05,36.05,9509152],
+["2025-11-28",36.26,36.34,35.65,36.20,11777610],
+["2025-12-01",36.20,36.64,36.06,36.60,13980578],
+["2025-12-02",36.60,36.81,36.12,36.28,9891603],
+["2025-12-03",36.56,36.60,35.72,35.90,11867375],
+["2025-12-04",35.90,36.42,35.50,36.34,11108352],
+["2025-12-05",36.54,36.97,36.25,36.88,12517797],
+["2025-12-08",37.12,37.34,36.95,37.13,13836148],
+["2025-12-09",37.07,37.13,36.80,36.96,6419913],
+["2025-12-10",36.97,37.32,36.62,37.11,11622220],
+["2025-12-11",37.12,37.28,36.39,36.45,12403343],
+["2025-12-12",36.55,36.75,35.86,35.99,16949949],
+["2025-12-15",35.97,36.17,35.37,35.62,12138048],
+["2025-12-16",35.55,35.55,34.60,34.94,12592442],
+["2025-12-17",34.85,35.18,34.51,34.99,10371561],
+["2025-12-18",34.72,35.10,34.52,34.82,9996198],
+["2025-12-19",34.90,35.26,34.82,35.05,9899786],
+["2025-12-22",35.09,35.28,35.10,35.14,8490737],
+["2025-12-23",35.33,35.33,34.66,34.93,9693169],
+["2025-12-24",35.02,35.23,35.00,35.13,8143998],
+["2025-12-25",35.18,35.59,35.08,35.53,10087034],
+["2025-12-26",35.53,35.83,35.42,35.64,9167663],
+["2025-12-29",35.77,35.82,35.23,35.36,10171276],
+["2025-12-30",35.45,35.66,35.14,35.46,12089764],
+["2025-12-31",35.68,35.68,34.82,34.85,13488569],
+["2026-01-05",35.14,35.18,34.10,34.27,19477766],
+["2026-01-06",34.26,34.91,34.10,34.72,13010363],
+["2026-01-07",34.70,34.70,34.01,34.02,10746000],
+["2026-01-08",34.01,34.32,33.66,34.08,11594470],
+["2026-01-09",34.07,34.41,33.71,33.89,13914721],
+["2026-01-12",33.72,36.37,33.69,36.37,21535022],
+["2026-01-13",37.26,37.98,36.53,36.74,32619028],
+["2026-01-14",36.88,38.65,36.80,37.70,29893946],
+["2026-01-15",37.87,37.99,36.82,37.03,20905414],
+["2026-01-16",37.61,38.04,36.19,36.71,20773852],
+["2026-01-19",37.00,37.65,36.50,37.19,14549714],
+["2026-01-20",37.08,37.78,36.15,36.76,23309911],
+["2026-01-21",36.68,37.18,34.91,34.91,22657796],
+["2026-01-22",34.77,36.00,34.58,35.59,24486163],
+["2026-01-23",35.83,36.87,35.60,36.65,21687442],
+["2026-01-26",36.86,36.92,35.22,35.42,17949484],
+["2026-01-27",34.53,34.89,33.60,33.83,20896282],
+["2026-01-28",33.67,34.08,33.30,33.94,12536726],
+["2026-01-29",34.12,34.38,33.53,33.61,11203195],
+["2026-01-30",33.60,33.62,32.79,33.25,10940113],
+["2026-02-02",33.22,33.66,33.00,33.23,9634042],
+["2026-02-03",33.28,33.62,33.34,33.36,9488416],
+["2026-02-04",33.30,33.73,33.28,33.50,9409058],
+["2026-02-05",33.42,33.87,33.16,33.83,12014068],
+["2026-02-06",34.00,35.10,33.78,34.89,19991317],
+["2026-02-09",35.34,36.28,35.13,35.41,28367681],
+["2026-02-10",35.62,35.82,35.01,35.47,16074112],
+["2026-02-11",35.53,35.78,35.16,35.32,13958596],
+["2026-02-12",35.55,36.22,35.42,35.78,16146262],
+["2026-02-13",35.72,36.43,35.72,35.93,21228839],
+["2026-02-24",36.03,36.79,35.82,36.25,21726617],
+["2026-02-25",36.09,36.51,35.93,36.42,13254651],
+["2026-02-26",36.55,36.84,36.05,36.27,13909196],
+["2026-02-27",36.23,37.16,36.05,36.82,18405977],
+["2026-03-02",36.65,37.86,36.41,37.05,20757744],
+["2026-03-03",37.06,37.28,35.89,35.98,13427923],
+["2026-03-04",35.87,36.18,35.70,35.87,8643112],
+["2026-03-05",35.87,37.06,35.80,36.65,11714748],
+["2026-03-06",36.50,37.11,36.22,37.10,11827727],
+["2026-03-09",36.90,38.59,36.74,38.59,24942499],
+["2026-03-10",38.60,39.62,38.40,39.05,23121955],
+["2026-03-11",39.37,39.81,38.72,38.85,21582161],
+["2026-03-12",38.95,39.07,37.03,37.03,23269592],
+["2026-03-13",37.21,38.20,36.93,37.80,9644706],
+["2026-03-16",38.41,38.95,37.50,37.50,11616321],
+["2026-03-17",37.62,38.25,37.40,38.00,8332461],
+["2026-03-18",37.98,38.15,37.65,37.79,6851208],
+["2026-03-19",37.65,37.77,37.08,37.27,5998133],
+["2026-03-20",37.10,37.41,36.33,36.59,8804132],
+["2026-03-23",36.80,37.35,36.28,36.96,10996942],
+["2026-03-24",37.48,38.05,37.05,37.85,11160684],
+["2026-03-25",38.15,38.33,37.52,37.64,10086082],
+["2026-03-26",37.93,38.78,37.71,38.22,13448737],
+["2026-03-27",38.30,39.30,38.00,39.12,17676835],
+["2026-03-30",39.83,40.83,39.52,39.78,23989077],
+["2026-03-31",40.20,41.29,39.99,40.72,26266797],
+["2026-04-01",40.86,41.60,40.18,41.10,18014401],
+["2026-04-02",41.42,42.49,40.83,42.48,20282200],
+["2026-04-03",42.00,43.84,42.00,43.68,23535848],
+["2026-04-07",46.28,47.85,46.01,46.60,40285329],
+["2026-04-08",46.15,47.69,43.79,47.42,42439008],
+["2026-04-09",43.70,43.70,38.64,38.64,50667241],
+["2026-04-10",38.12,39.80,38.12,39.72,26472714],
+["2026-04-13",40.56,41.95,39.76,41.33,25667218],
+["2026-04-14",41.01,41.69,40.28,40.68,22837568],
+["2026-04-15",40.30,42.32,39.90,40.57,25012550],
+["2026-04-16",40.30,41.00,39.19,39.48,19245786],
+["2026-04-17",39.72,40.34,39.37,39.84,17414585],
+["2026-04-20",39.70,41.09,39.54,40.80,20447596],
+["2026-04-21",40.52,41.39,40.10,41.10,19705480],
+["2026-04-22",40.90,42.35,40.90,42.02,22656190],
+["2026-04-23",43.00,47.18,42.65,46.47,54607984],
+["2026-04-24",49.21,56.19,49.18,53.05,85610741],
+["2026-04-27",54.29,60.00,53.00,58.68,84015374],
+["2026-04-28",59.08,66.50,57.11,65.14,101076673],
+["2026-04-29",58.68,65.00,56.65,64.03,72824807],
+["2026-04-30",63.90,68.20,63.72,67.68,51789315],
+["2026-05-06",71.86,76.41,70.27,74.37,53428853],
+["2026-05-07",82.23,92.46,82.23,92.46,61824772],
+["2026-05-08",104.61,113.16,101.60,107.63,113014204],
+["2026-05-09",120.07,121.08,115.37,121.08,83308960],
+["2026-05-11",124.50,134.27,124.50,134.27,67436577],
+["2026-05-12",134.20,139.82,128.28,134.66,66462436],
+["2026-05-13",138.32,148.13,137.35,148.13,43889004],
+["2026-05-14",153.00,156.50,147.07,149.23,61222549],
+["2026-05-15",149.24,151.10,138.71,143.30,54570444]
+];
+const dates = [], ohlc = [], volumesRaw = [];
+rawData.forEach(d => {
+dates.push(d[0]);
+ohlc.push([d[1], d[4], d[3], d[2]]);
+volumesRaw.push(d[5]);
+});
+const closes = ohlc.map(d => d[1]);
+const calcMA = (arr, n) => arr.map((_, i) => {
+if (i < n - 1) return null;
+let sum = arr.slice(i - n + 1, i + 1).reduce((a, b) => a + b, 0);
+return +(sum / n).toFixed(2);
+});
+const ma5 = calcMA(closes, 5), ma20 = calcMA(closes, 20), ma60 = calcMA(closes, 60);
+const volumes = volumesRaw.map(v => +(v / 10000).toFixed(2));
+const dateLabels = dates.map(d => { const parts = d.split('-'); return parts[1] + '-' + parts[2]; });
+
+function getThemeColors() {
+const isLight = document.body.classList.contains('light-mode');
+return {
+textColor: isLight ? '#2a1f12' : '#e8e9ec',
+textSecondary: isLight ? '#6b5634' : '#b0b3be',
+textMuted: isLight ? '#9c8b6e' : '#7a7d8a',
+upColor: isLight ? '#dc2626' : '#f55656',
+downColor: isLight ? '#16a34a' : '#28c75b',
+ma5Color: isLight ? '#2563eb' : '#4a90d9',
+ma20Color: isLight ? '#16a34a' : '#28c75b',
+ma60Color: isLight ? '#c2410c' : '#e8923a',
+volUpColor: isLight ? 'rgba(220,38,38,0.25)' : 'rgba(245,86,86,0.35)',
+volDownColor: isLight ? 'rgba(22,163,74,0.25)' : 'rgba(40,199,91,0.35)',
+};
+}
+
+let pieChart, klineChart;
+function renderPie() {
+if (pieChart) pieChart.dispose();
+pieChart = echarts.init(document.getElementById('chart-business-pie'));
+const c = getThemeColors();
+pieChart.setOption({
+tooltip: { trigger: 'item', formatter: '{b}: {d}% (营收{c}亿)' },
+series: [{
+type: 'pie', radius: ['45%', '70%'],
+data: [
+{value:129.86,name:"其他智能制造装备"},
+{value:57.73,name:"PCB智能制造装备"}
+],
+label: { fontSize: 11, color: c.textSecondary },
+color: ['#f55656', '#d4a853']
+}]
+});
+}
+
+function renderKline() {
+if (klineChart) klineChart.dispose();
+klineChart = echarts.init(document.getElementById('chart-kline-full'));
+const c = getThemeColors();
+const volData = volumes.map((v, i) => ({
+value: v,
+itemStyle: { color: ohlc[i][1] >= ohlc[i][0] ? c.volUpColor : c.volDownColor }
+}));
+klineChart.setOption({
+grid: [
+{ left: '9%', right: '6%', top: '12%', height: '55%' },
+{ left: '9%', right: '6%', top: '74%', height: '14%' }
+],
+xAxis: [
+{ type: 'category', data: dateLabels, gridIndex: 0,
+axisLabel: { color: c.textMuted, fontSize: 9, interval: 5 },
+axisLine: { lineStyle: { color: c.textMuted } }, splitLine: { show: false } },
+{ type: 'category', data: dateLabels, gridIndex: 1, show: false, splitLine: { show: false } }
+],
+yAxis: [
+{ scale: true, gridIndex: 0, axisLabel: { color: c.textMuted, fontSize: 10 }, splitLine: { show: false } },
+{ scale: true, gridIndex: 1, axisLabel: { color: c.textMuted, fontSize: 10, formatter: '{value}万' }, splitLine: { show: false } }
+],
+dataZoom: [{ type: 'inside', xAxisIndex: [0, 1] }],
+tooltip: { trigger: 'axis', axisPointer: { type: 'cross' },
+formatter: function(params) {
+const k = params.find(p => p.seriesName === 'K线');
+const vol = params.find(p => p.seriesName === '成交量');
+if (!k || !vol) return '';
+return k.axisValue + '<br/>开: ' + k.data[0] + '  收: ' + k.data[1] + '<br/>低: ' + k.data[2] + '  高: ' + k.data[3] + '<br/>成交量: ' + vol.data.value + '万手';
+}
+},
+legend: { data: ['K线', 'MA5', 'MA20', 'MA60'], top: 0, textStyle: { color: c.textSecondary } },
+series: [
+{ name: 'K线', type: 'candlestick', data: ohlc, xAxisIndex: 0, yAxisIndex: 0,
+itemStyle: { color: c.upColor, color0: c.downColor, borderColor: c.upColor, borderColor0: c.downColor } },
+{ name: 'MA5', type: 'line', data: ma5, smooth: true,
+lineStyle: { width: 1.5, color: c.ma5Color }, showSymbol: false, xAxisIndex: 0, yAxisIndex: 0 },
+{ name: 'MA20', type: 'line', data: ma20, smooth: true,
+lineStyle: { width: 1.5, color: c.ma20Color }, showSymbol: false, xAxisIndex: 0, yAxisIndex: 0 },
+{ name: 'MA60', type: 'line', data: ma60, smooth: true,
+lineStyle: { width: 1.5, color: c.ma60Color }, showSymbol: false, xAxisIndex: 0, yAxisIndex: 0 },
+{ name: '成交量', type: 'bar', data: volData, xAxisIndex: 1, yAxisIndex: 1 }
+]
+});
+}
+
+function renderCharts() { renderPie(); renderKline(); }
+const toggleBtn = document.getElementById('themeToggle');
+toggleBtn.addEventListener('click', () => {
+document.body.classList.toggle('light-mode');
+toggleBtn.textContent = document.body.classList.contains('light-mode') ? '🌙 深色模式' : '☀️ 浅色模式';
+renderCharts();
+});
+renderCharts();
+const sections = document.querySelectorAll('.card[id], .hero[id], .conclusion-top[id]');
+const navs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+let cur = '';
+sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+navs.forEach(a => {
+a.classList.remove('active');
+if (a.getAttribute('href') === '#' + cur) a.classList.add('active');
+});
+});
+document.querySelectorAll('.nav-links a').forEach(a => {
+a.addEventListener('click', function(e) {
+e.preventDefault();
+const target = document.querySelector(this.getAttribute('href'));
+if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+});
+window.addEventListener('resize', () => {
+pieChart && pieChart.resize();
+klineChart && klineChart.resize();
+});
+})();
+</script>
+</body>
+</html>
